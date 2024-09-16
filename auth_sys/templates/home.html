@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <nav>
+        HELLO {{ user.username }}
+    </nav>
+    <hr>
+    <h1>WELCOME TO HOME PAGE</h1>
+
+    {% if request.user.is_authenticated %}
+        <button><a href="{% url 'logout' %}">Logout</a></button>
+    {% else %}
+        <button><a href="{% url 'login' %}">Login</a></button>
+    {% endif %}
+</body>
+</html>

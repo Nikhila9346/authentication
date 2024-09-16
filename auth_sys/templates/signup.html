@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<body>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <!--!USER CREATION FORM-->
+        <!-- {{form}} -->
+        <!-- {{form.as_p}} -->
+        <!-- {{form.as_table}} -->
+         {% for field in form %}
+            <label for="">{{field.label}}</label> <br>
+            {{ field }} <br>
+         {% endfor %}
+
+         <br><br>
+         <input type="submit" value="Signup">
+
+
+        <!-- <label for="un">USERNAME:</label>
+        <br>
+        <input type="text" id="un" name="username">
+        <br><br>
+        <label for="pass">PASSWORD:</label>
+        <br>
+        <input type="password" id="pass" name="password1">
+        <br><br>
+        <label for="cp">PASSWORD (again):</label>
+        <br>
+        <input type="password" id="cp" name="password2">
+        <br><br>
+        <button type="submit">SIGN UP</button> -->
+    </form>
+
+    <h5>Already have account? <a href="{% url 'login' %}">Login</a></h5>
+
+    <!-- error is passed in context in views.py  -->
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
