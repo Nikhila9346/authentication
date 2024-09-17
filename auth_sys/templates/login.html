@@ -9,6 +9,9 @@
 
     <form action="" method="POST">
         {% csrf_token %}
+
+        {{form}}
+        {% comment %} 
         <label for="un">USERNAME:</label>
         <br>
         <input type="text" id="un" name="username">
@@ -16,8 +19,9 @@
         <label for="pass">PASSWORD:</label>
         <br>
         <input type="password" id="pass" name="password1">
+        {% endcomment %}
         <br><br>
-        <button type="submit">LOGIN</button>
+        <button type="submit">LOGIN</button> 
     </form>
 
     <h5>Don't have account? <a href="{% url 'signup' %}">Signup</a></h5>

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 def signup(request):
     if request.method == 'POST':
@@ -12,21 +12,34 @@ def signup(request):
             form.save()
             return redirect('login')
         else:
+            form = UserCreationForm()
             context = {
-                'error': "Something went wrong"
+                'error': "Something went wrong!!!",
+                'form' : form
             }
-            return render(request, 'signup.htm', context)
+            return render(request, 'signup.html', context)
 
     form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
 def login_user(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        #if the form is valid then store the details of the user in a variable to make user logged in (storing the user in session)
+        if form.is_valid():
+            #get_user is an inbuilt method of AuthenticationForm()
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+        
+    form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
     
 def logout_user(request):
     logout(request)
     return redirect('login')
  
+@login_required(login_url='login')
 def home(request):
     return render(request, 'home.html')
     
